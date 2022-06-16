@@ -1,6 +1,7 @@
 package com.shop.service.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +68,6 @@ public class Receipt implements Serializable {
 
     @OneToMany(mappedBy = "receipt", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<OrderDrinkReceipt> orderDrinkReceipts;
+    private List<OrderDrinkReceipt> orderDrinkReceipts = new ArrayList<>();
 
 }
