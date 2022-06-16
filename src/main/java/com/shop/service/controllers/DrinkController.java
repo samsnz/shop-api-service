@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.service.dtos.views.NearestCargoView;
+import com.shop.service.dtos.views.TopConsumedDrinkView;
 import com.shop.service.models.Drink;
 import com.shop.service.services.CargoService;
 import com.shop.service.services.DrinkService;
@@ -59,6 +60,11 @@ public class DrinkController {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @GetMapping("/most-consumed")
+    public List<TopConsumedDrinkView> getTopConsumedDrinksWithQuantity(@RequestParam(name = "top") Integer top) {
+        return drinkService.getTopConsumedDrinksWithQuantity(top);
     }
 
 }

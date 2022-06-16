@@ -11,6 +11,6 @@ public class OrderDrinksListDto {
 
     private String drinkCode;
 
-    private Integer quantity;
+    private Integer quantityOrdered;
 
 }
