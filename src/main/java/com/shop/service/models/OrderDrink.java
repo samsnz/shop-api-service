@@ -1,62 +1,48 @@
 package com.shop.service.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.shop.service.models.enums.EOrderStatus;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "orders")
+@Table(uniqueConstraints = @UniqueConstraint(name = "unique_order_and_drink", columnNames = {
+        "order_id", "drink_code" }))
 @Getter
 @Setter
-@NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Order implements Serializable {
+public class OrderDrink implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String details;
-
-    private Date date = new Date();
-
-    @Enumerated(EnumType.STRING)
-    private EOrderStatus status = EOrderStatus.PENDING;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonManagedReference
-    private Client client;
+    @JoinColumn(name = "drink_code", nullable = false, referencedColumnName = "code")
+    private Drink drink;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonManagedReference
-    @JoinColumn(name = "cargo_code", nullable = false, referencedColumnName = "code")
-    private Cargo cargo;
-
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<OrderDrink> orderDrinks = new ArrayList<>();
+    @Column(nullable = false)
+    private int quantity;
 
 }
