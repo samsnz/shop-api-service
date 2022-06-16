@@ -12,4 +12,6 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
     List<Drink> findByQuantityGreaterThan(Integer quantity);
 
+    Drink findByCode(String code);
+
 }

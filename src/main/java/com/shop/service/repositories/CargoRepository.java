@@ -12,6 +12,8 @@ import com.shop.service.models.Cargo;
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Long> {
 
+    Cargo findTop1ByCode(String code);
+
     @Query(value = "SELECT id, code, name, details, longitude, latitude, ROUND(ST_Distance_Sphere(point(longitude, latitude), point( :longitude, :latitude))/1000, 2) AS distance FROM soft_shop.cargo WHERE (ST_Distance_Sphere(point(longitude, latitude), point( :longitude, :latitude))/1000) <= :distance ORDER BY distance ASC LIMIT 1", nativeQuery = true)
     NearestCargoView findNearestCargoWithin(Double longitude, Double latitude, Double distance);
 
