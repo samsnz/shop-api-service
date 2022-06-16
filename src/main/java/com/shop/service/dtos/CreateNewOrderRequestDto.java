@@ -18,6 +18,6 @@ public class CreateNewOrderRequestDto {
 
     private Long clientId;
 
-    private List<OrderDrinksListDto> orderDrinksList = new ArrayList<>();
+    private List<OrderDrinkDto> orderDrinksList = new ArrayList<>();
 
 }

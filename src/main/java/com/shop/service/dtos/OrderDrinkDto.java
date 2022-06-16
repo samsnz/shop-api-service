@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderDrinksListDto {
+public class OrderDrinkDto {
 
     private String drinkCode;
 

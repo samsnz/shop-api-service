@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.service.dtos.CreateNewOrderRequestDto;
-import com.shop.service.dtos.OrderDrinksListDto;
+import com.shop.service.dtos.OrderDrinkDto;
 import com.shop.service.models.Cargo;
 import com.shop.service.models.Client;
 import com.shop.service.models.Drink;
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
 
         Client client = clientRepository.findById(createNewOrderRequestDto.getClientId()).orElse(null);
 
-        List<OrderDrinksListDto> orderDrinksList = createNewOrderRequestDto.getOrderDrinksList();
+        List<OrderDrinkDto> orderDrinksList = createNewOrderRequestDto.getOrderDrinksList();
 
         Order orderToSave = new Order();
 
