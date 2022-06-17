@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shop.service.configurations.exceptions.CustomResponseException;
 import com.shop.service.dtos.CreateNewOrderRequestDto;
 import com.shop.service.dtos.OrderDrinkDto;
 import com.shop.service.dtos.OrderTotalPriceDto;
@@ -87,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
             Drink drink = drinkRepository.findByCode(item.getDrinkCode());
 
             if (drink.getQuantity() - item.getQuantityOrdered() < 0) {
-                throw new RuntimeException("Quantity ordered is large");
+                throw new CustomResponseException(400, "Quantity ordered is large");
             }
 
             OrderDrink orderDrink = new OrderDrink();

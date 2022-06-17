@@ -20,20 +20,28 @@ import com.shop.service.models.Cargo;
 import com.shop.service.repositories.CargoRepository;
 import com.shop.service.services.CargoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(value = "/cargos", produces = "application/json")
+@Tag(name = "CARGO", description = "APIs to perform operations on cargos")
 public class CargoController {
 
     @Autowired
     private CargoService cargoService;
 
     @GetMapping
-    public List<Cargo> getAllClients() {
+    @Operation(summary = "Cargo 1: Get All Cargos", description = "Get a list of all cargo companies", tags = {
+            "getAllCargos" })
+    public List<Cargo> getAllCargos() {
         return cargoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cargo> getClientById(@PathVariable("id") Long id) {
+    @Operation(summary = "Cargo 2: Get Specific Cargo by ID", description = "Get a specific cargo company by ID", tags = {
+            "getCargoById" })
+    public ResponseEntity<Cargo> getCargoById(@PathVariable("id") Long id) {
         Cargo cargo = cargoService.findCargoById(id);
 
         if (cargo != null) {
@@ -44,6 +52,8 @@ public class CargoController {
     }
 
     @GetMapping("/{cargoCode}/drinks")
+    @Operation(summary = "Cargo 3: Get All Drinks of a Specific Cargo in Date Range", description = "For a specific cargo company, get a list of drinks transported by date range", tags = {
+            "findAllTransportedDrinksByCargoWithinDates" })
     public Set<CargoDrinkDto> findAllTransportedDrinksByCargoWithinDates(
             @RequestParam(name = "startDate") String startDate, @RequestParam(name = "endDate") String endDate,
             @PathVariable("cargoCode") String cargoCode) throws ParseException {

@@ -16,8 +16,12 @@ import com.shop.service.models.Client;
 import com.shop.service.services.CargoService;
 import com.shop.service.services.ClientService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(value = "/clients", produces = "application/json")
+@Tag(name = "CLIENT", description = "APIs to perform operations on clients")
 public class ClientController {
 
     @Autowired
@@ -27,11 +31,15 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping
+    @Operation(summary = "Client 1: Get All Clients", description = "Get a list of all clients", tags = {
+            "getAllClients" })
     public List<Client> getAllClients() {
         return clientService.findAll();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Client 2: Get Specific Client by ID", description = "Get a specific client by ID", tags = {
+            "getClientById" })
     public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) {
         Client client = clientService.findClientById(id);
 
@@ -43,6 +51,8 @@ public class ClientController {
     }
 
     @GetMapping("/{clientId}/cargos")
+    @Operation(summary = "Client 3: Get Top Nearest Cargo to Client", description = "For a specific retailer client/hotel, get a list of the 3 closest cargo companies", tags = {
+            "findTopClosestCargo" })
     public List<NearestCargoView> findTopClosestCargo(@PathVariable("clientId") Long clientId,
             @RequestParam(name = "limit") Integer limit) {
         return cargoService.findTopClosestCargo(clientId, limit);
