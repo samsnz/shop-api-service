@@ -27,3 +27,5 @@ That's it. You are all set now. The app is running on port 8081. You can change 
 ## Accessing the API documentation
 
 Navigate to this link in your browser: `http://localhost:8081/api/v1/api-docs/`
+
+There are some initial data in seeders. With that, you can start calling the APIs right away.
