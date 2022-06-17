@@ -1,0 +1,15 @@
+{
+  "orderDetails": "My first order",
+  "cargoCode": "GIS01",
+  "clientId": 2,
+  "orderDrinksList": [
+    {
+      "drinkCode": "M01",
+      "quantityOrdered": 1
+    },
+    {
+      "drinkCode": "T01",
+      "quantityOrdered": 255
+    }
+  ]
+}

@@ -1,8 +1,6 @@
 package com.shop.service.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,41 +8,45 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "clients")
 @Getter
 @Setter
-@NoArgsConstructor
 // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 // property = "id")
-public class Client implements Serializable {
+public class OrderDrinkReceipt implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
-    private String name;
+    private long drinkId;
 
-    private String details;
+    @Column(nullable = false)
+    private String drinkCode;
 
-    private Double longitude;
+    @Column(nullable = false)
+    private String drinkName;
 
-    private Double latitude;
+    @Column(nullable = false)
+    private int drinkQuantity;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    private double drinkUnitPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Order> orders = new ArrayList<>();
+    @JoinColumn(nullable = false)
+    private Receipt receipt;
 
 }
