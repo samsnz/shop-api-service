@@ -1,0 +1,11 @@
+spring:
+  sql:
+    init:
+      data-locations:
+        - classpath:/db/initial_data/clients.sql
+        - classpath:/db/initial_data/drinks.sql
+        - classpath:/db/initial_data/cargo.sql
+        - classpath:/db/initial_data/orders.sql
+        - classpath:/db/initial_data/order_drink.sql
+        - classpath:/db/initial_data/receipts.sql
+        - classpath:/db/initial_data/order_drink_receipt.sql
